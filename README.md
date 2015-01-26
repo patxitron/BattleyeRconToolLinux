@@ -22,7 +22,7 @@ This project includes eclipse CDT project files, but eclipse is not needed to
 build the project as it has a self-contained Makefile. So change to the
 directory and type 'make' to build it.
 
-## Lincense
+## License
 
 This software is distributed under the terms of the MIT license.
 
