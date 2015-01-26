@@ -13,6 +13,15 @@ rconTool server.name.com 2302
 
 At this moment, you can only exit by pressing Ctrl+C
 
+## Dependencies
+
+[Boost C++ libraries](http://www.boost.org/) are the only needed dependency.
+Moreover only boost::asio and boost::system are used.
+
+This project includes eclipse CDT project files, but eclipse is not needed to
+build the project as it has a self-contained Makefile. So change to the
+directory and type 'make' to build it.
+
 ## Lincense
 
 This software is distributed under the terms of the MIT license.
