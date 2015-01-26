@@ -16,7 +16,7 @@
 #include <functional>
 #include <boost/asio.hpp>
 
-namespace utum {
+namespace patxi {
 
 class a3s
 {
@@ -28,16 +28,19 @@ public:
 	} request_type;
 	using on_login_func = std::function<void (bool)>;
 	using on_data_func = std::function<void (char const*, std::size_t)>;
+	static const std::size_t MAX_COMMAND_LENGTH = 256;
 	static const std::size_t MSG_MAX_LENGTH = 1024;
 	static const std::size_t PAYLOAD_MAX_LENGTH = 256;
 
-	a3s(boost::asio::io_service& io_service, uint16_t port, char const* addr,
-	    on_data_func on_data=nullptr, on_login_func on_login=nullptr);
+	a3s(boost::asio::io_service& io_service, uint16_t port
+	   ,std::string const& addr, on_data_func on_data=nullptr
+	   ,on_login_func on_login=nullptr);
 	~a3s();
 
-	void login(char const* password);
+	void login(std::string const& password);
 	void onData(on_data_func fnc) {on_data_ = fnc;}
 	void onLogin(on_login_func fnc) {on_login_ = fnc;}
+	void consoleInput();
 	void send(char const* data, std::size_t length=0);
 	bool listening() const {return listening_;}
 	bool logedIn() const {return loged_in_;}
@@ -70,10 +73,12 @@ private:
 	on_data_func on_data_;
 	on_login_func on_login_;
 	boost::asio::ip::udp::socket socket_;
+	boost::asio::posix::stream_descriptor input_;
+	boost::asio::streambuf console_data_;
 	boost::asio::ip::udp::endpoint endpoint_;
-	char data_[MSG_MAX_LENGTH];
+	char net_data_[MSG_MAX_LENGTH];
 };
 
-} // namespace utum
+} // namespace patxi
 
 #endif // A3S_H_

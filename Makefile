@@ -2,7 +2,7 @@ CXXFLAGS = -O2 -std=c++11 -Wall -pedantic -g -fmessage-length=0
 
 OBJS = a3s.o main.o
 
-LIBS =
+LIBS = -lboost_system -lpthread
 
 TARGET = rconTool
 
