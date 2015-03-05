@@ -112,6 +112,12 @@ void a3s::receive()
 						} else if(req->hdr.begin_msg == 0x02) {
 							// Broadcast packet
 							send_request(&req->payload[0], 1, BROADCAST_RESPONSE);
+							if(on_data_) {
+								on_data_(
+									req->payload,
+									length - sizeof(reqheader_t)
+								);
+							}
 						} else {
 							cerr << "Invalid Battleye protocol." << endl;
 						}
